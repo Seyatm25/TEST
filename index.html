@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Penetapan Kadar Fosfat Metode Asam Askorbat - Spektrofotometer Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f9;--card:#fff;--ink:#12202e;--mut:#5b6b7b;--ac:#1f5fbf;--ln:#d5dde6;--ok:#17803d;--bad:#b42318}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1620;--card:#16212d;--ink:#e6edf4;--mut:#9aabbb;--ac:#6ea8ff;--ln:#2b3b4b;--ok:#4cc27a;--bad:#ff7a6b}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 'IBM Plex Sans',system-ui,sans-serif}
+header{padding:28px 20px 8px;max-width:1320px;margin:auto}h1{font-size:clamp(22px,4vw,34px);margin:0 0 6px;line-height:1.2}
+header p{color:var(--mut);margin:0;max-width:70ch}
+nav{display:flex;gap:6px;flex-wrap:wrap;max-width:1320px;margin:14px auto;padding:0 20px;position:sticky;top:0;background:var(--bg);z-index:5;padding-top:8px;padding-bottom:8px}
+nav button,.btn{border:1px solid var(--ln);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:6px;cursor:pointer;font:inherit}
+nav button.on,.btn.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{max-width:1320px;margin:auto;padding:0 20px 60px}section{display:block;scroll-margin-top:70px}html{scroll-behavior:smooth}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:8px;padding:16px;margin-bottom:16px}
+h2{font-size:20px;margin:0 0 10px}h3{font-size:16px;margin:14px 0 8px}
+#v{width:100%;height:clamp(380px,62vh,540px);border-radius:8px;background:linear-gradient(#1a2a3d,#0c141d);position:relative;touch-action:none;cursor:grab}
+#v canvas{display:block;border-radius:8px}.row{display:flex;gap:16px;flex-wrap:wrap}.row>*{flex:1 1 300px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.chips button{font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}th,td{border:1px solid var(--ln);padding:5px 7px;text-align:center}th{background:color-mix(in srgb,var(--ac) 12%,var(--card))}
+td.l{text-align:left}input,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--ln);border-radius:4px;padding:4px 6px;width:100%;min-width:62px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}label{font-size:12.5px;color:var(--mut);display:block}
+.ov{overflow-x:auto}.ok{color:var(--ok);font-weight:600}.bad{color:var(--bad);font-weight:600}.mut{color:var(--mut);font-size:13px}
+canvas#ch{width:100%;max-width:640px;height:auto;border:1px solid var(--ln);border-radius:6px;background:#fff}
+.stat{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0}.stat b{font-size:18px}
+#rep{background:#fff;color:#111;padding:24px;border-radius:8px}#rep table th{background:#e8eef6}#rep td,#rep th{border-color:#999}
+@media print{body{background:#fff}header,nav,.card:not(#repc),#repc>*:not(#rep){display:none!important}section{display:block!important}section:not(#s4){display:none!important}#rep{padding:0}}
+:root[data-theme=dark]{--bg:#0e1620;--card:#16212d;--ink:#e6edf4;--mut:#9aabbb;--ac:#6ea8ff;--ln:#2b3b4b;--ok:#4cc27a;--bad:#ff7a6b}
+:root[data-theme=light]{--bg:#f2f5f9;--card:#fff;--ink:#12202e;--mut:#5b6b7b;--ac:#1f5fbf;--ln:#d5dde6;--ok:#17803d;--bad:#b42318}
+body.lock{overflow:hidden}
+.top{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;gap:4px;padding:8px 20px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.top b{margin-right:auto;font-size:16px}.top a,.top button{color:var(--ink);text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;border:0;background:none;cursor:pointer;font-family:inherit}.top a:hover,.top button:hover{background:var(--card)}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:#050b12;color:#fff}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero .in{position:relative;max-width:1320px;margin:auto;padding:100px 20px 60px;width:100%}
+.hero h1{font-size:clamp(34px,6.2vw,76px);line-height:1.04;max-width:15ch;margin:12px 0 16px}.hero p{max-width:58ch;color:#b9c8d8;font-size:17px}
+.eyebrow{letter-spacing:.22em;text-transform:uppercase;font-size:12.5px;color:#7fd0ff}
+.chipr{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.chipr span{border:1px solid #2f4a63;border-radius:99px;padding:5px 14px;font-size:13px;color:#cfe3f5;background:#0c1a28aa}
+.hero .btn{padding:11px 22px;margin:22px 8px 0 0;text-decoration:none;display:inline-block}.hero .btn:not(.p){background:transparent;color:#fff;border-color:#4a6a88}
+#intro{position:fixed;inset:0;z-index:100;background:#050b12;color:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+#intro.out{opacity:0;visibility:hidden}#intro canvas{position:absolute;inset:0;width:100%;height:100%}
+#intro .c{position:relative;text-align:center}#icnt{font-size:clamp(80px,18vw,200px);font-weight:600;line-height:1}
+#iph{color:#8fb5d4;letter-spacing:.16em;text-transform:uppercase;font-size:13px;min-height:20px}
+#enter{margin-top:24px;opacity:0;pointer-events:none;transition:opacity .6s;border:1px solid #6ea8ff;color:#fff;background:transparent;padding:10px 28px;border-radius:99px;cursor:pointer;font:inherit;letter-spacing:.16em;text-transform:uppercase}#enter.on{opacity:1;pointer-events:auto}
+.st{font-size:clamp(26px,4vw,42px);margin:48px 0 6px;line-height:1.1}.sd{color:var(--mut);margin:0 0 16px;max-width:70ch}
+.sbn{position:sticky;top:50px;z-index:9;display:flex;gap:6px;flex-wrap:wrap;background:var(--bg);padding:8px 0;margin-bottom:8px}.sbn a{border:1px solid var(--ln);background:var(--card);color:var(--ink);padding:6px 14px;border-radius:99px;text-decoration:none;font-size:13.5px}.sbn a:hover{border-color:var(--ac);color:var(--ac)}
+.ctl{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.ctl .btn{font-size:13.5px;padding:7px 12px}.ctl .btn.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.lb{position:absolute;pointer-events:none;font-size:12px;background:#0b1622d9;color:#fff;border:1px solid #3a5a78;border-radius:4px;padding:2px 7px;transform:translate(-50%,-120%);white-space:nowrap;display:none}
+.goal{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:10px}.goal>div{border:1px solid var(--ln);border-radius:8px;padding:14px 16px;background:var(--card)}.goal b{color:var(--ac);font-size:13px;letter-spacing:.12em}.goal h3{margin:4px 0 4px}.goal p{margin:0}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:24px 20px 40px}
+.s1g{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(310px,1fr);gap:16px;align-items:start}
+.s1g>.card:nth-child(2){position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto}
+.s1g .row>*{flex:1 1 100%}
+@media(max-width:960px){.s1g{grid-template-columns:1fr}.s1g>.card:nth-child(2){position:static;max-height:none}}
+.steps li{margin:4px 0;color:var(--mut)}.steps li.on{color:var(--ac);font-weight:600}
+.view{display:none;min-height:100vh}.view.on{display:block;animation:vin .5s}#home.on{display:flex}
+@keyframes vin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hn{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;align-items:center;gap:6px;padding:18px 28px;flex-wrap:wrap}.hn b{margin-right:auto;letter-spacing:.04em}
+.hn a,.hn button{color:#dbe8f5;text-decoration:none;padding:7px 14px;border-radius:99px;font-size:14px;border:0;background:none;cursor:pointer;font-family:inherit}.hn a:hover,.hn button:hover{background:#ffffff18}
+.vbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.vbar h2{font-size:17px;margin:0 6px 0 0}.vbar .sp{margin-left:auto}.vbar a.back,.vbar .thm{border:1px solid var(--ln);background:var(--card);color:var(--ink);padding:6px 14px;border-radius:99px;text-decoration:none;font-size:13.5px;cursor:pointer;font-family:inherit}
+.vbar .sbn{position:static;background:none;padding:0;margin:0}
+.wrap{max-width:1100px;margin:auto;padding:20px 20px 60px}.wrap [id]{scroll-margin-top:100px}.wrap h2.ah{font-size:clamp(24px,3.4vw,34px);margin:26px 0 6px}
+.v3{display:flex;height:calc(100vh - 54px);min-height:520px}.v3 #v{flex:1;height:auto;min-width:0;border-radius:0}.v3 #v canvas{border-radius:0}
+.panel{width:390px;max-width:44vw;overflow:auto;padding:16px;border-left:1px solid var(--ln);background:var(--card)}.panel h3:first-child{margin-top:0}
+#ld{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#cfe3f5;background:#0c141d;z-index:3;letter-spacing:.1em}
+details{margin-top:12px}summary{cursor:pointer;color:var(--ac)}
+@media(max-width:860px){.v3{flex-direction:column;height:auto}.v3 #v{height:55vh;flex:none}.panel{width:auto;max-width:none;border-left:0}}
+a[data-go],a[data-sc],a[data-tab]{cursor:pointer}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:28px;max-width:920px}.opts a{display:block;border:1px solid #2f4a63;background:#0c1a28cc;border-radius:12px;padding:14px 16px;color:#fff;transition:.2s}.opts a:hover{border-color:#6ea8ff;transform:translateY(-3px)}.opts b{color:#7fd0ff;font-size:12px;letter-spacing:.15em}.opts h3{margin:4px 0;color:#fff;font-size:18px}.opts span{color:#9fb6cc;font-size:13.5px}
+.vc{position:absolute;z-index:4;display:flex;gap:6px;flex-wrap:wrap}.vc.top{top:10px;left:10px}.vc.bot{left:10px;right:10px;bottom:10px}
+.vc .btn{background:#0b1622cc;color:#fff;border-color:#3a5a78;font-size:12.5px;padding:6px 11px;backdrop-filter:blur(6px)}.vc .btn.p,.vc .btn.on{background:var(--ac);border-color:var(--ac);color:#fff}
+#calc .card{border-radius:14px;padding:20px;box-shadow:0 1px 3px #0001}#calc .card h2{font-size:20px;margin-bottom:12px}#calc h3{font-size:15px}
+#calc label{font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:5px}
+#calc input,#calc select{padding:10px 11px;border-radius:8px;font-size:15px}#calc td input{text-align:center}
+#calc table{border:0}#calc th,#calc td{border:0;border-bottom:1px solid var(--ln);padding:8px}#calc th{background:none;color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+#calc tr:hover td{background:color-mix(in srgb,var(--ac) 6%,transparent)}
+#calc .stat{gap:10px;margin:14px 0}#calc .stat span{background:color-mix(in srgb,var(--ac) 9%,var(--card));border-radius:10px;padding:8px 16px;display:flex;flex-direction:column;font-size:12.5px;color:var(--mut)}#calc .stat b{font-size:22px;color:var(--ink)}
+#calc .sd{font-size:14px}.nt{margin:12px 0;border:1px dashed var(--ln);border-radius:8px;padding:6px 12px}.nt summary{color:var(--ac);font-size:13px;cursor:pointer}.nt p{margin:8px 0}
+details.card>summary{cursor:pointer;font-weight:600;font-size:17px}details.card[open]>summary{margin-bottom:12px}
+.pn{display:none}.pn.on{display:block;animation:vin .35s}.pnav{display:flex;justify-content:space-between;gap:10px;margin-top:6px}.pnav .btn{padding:10px 18px}
+.sbn a.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+.hero h1{background:linear-gradient(90deg,#fff,#7fd0ff 55%,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.opts{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;max-width:1040px;margin-top:34px}
+.opts a{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:24px 22px 20px;border-radius:20px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--c) 22%,#0a1420),#0a1420cc 70%);box-shadow:0 10px 30px #0006,inset 0 1px 0 #ffffff14;animation:rise .7s both;transition:transform .25s,box-shadow .25s,border-color .25s}
+.opts a:nth-child(2){animation-delay:.12s}.opts a:nth-child(3){animation-delay:.24s}
+.opts a:hover{transform:translateY(-8px);border-color:var(--c);box-shadow:0 18px 44px color-mix(in srgb,var(--c) 38%,transparent),inset 0 1px 0 #ffffff22}
+.opts a::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffff22,transparent);transform:skewX(-20deg);transition:left .7s}.opts a:hover::after{left:130%}
+.opts i{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 18%,transparent);border:1px solid color-mix(in srgb,var(--c) 40%,transparent);margin-bottom:6px}.opts i svg{width:28px;height:28px}
+.opts b{position:absolute;top:18px;right:20px;font-size:34px;font-weight:700;color:color-mix(in srgb,var(--c) 45%,transparent);letter-spacing:0}
+.opts h3{font-size:22px;margin:4px 0 2px}.opts span{font-size:14px;line-height:1.5;flex:1}.opts em{font-style:normal;color:var(--c);font-weight:600;font-size:14px;margin-top:10px}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.pn[data-p="0"]{--pc:#8b5cf6}.pn[data-p="1"]{--pc:#3b82f6}.pn[data-p="2"]{--pc:#14b8a6}.pn[data-p="3"]{--pc:#22c55e}.pn[data-p="4"]{--pc:#f59e0b}.pn[data-p="5"]{--pc:#ec4899}
+#ctabs a:nth-child(1){--tc:#8b5cf6}#ctabs a:nth-child(2){--tc:#3b82f6}#ctabs a:nth-child(3){--tc:#14b8a6}#ctabs a:nth-child(4){--tc:#22c55e}#ctabs a:nth-child(5){--tc:#f59e0b}#ctabs a:nth-child(6){--tc:#ec4899}
+#ctabs a{border-left:5px solid var(--tc);font-weight:600}#ctabs a.on{background:var(--tc);border-color:var(--tc);color:#fff}
+#calc .card{border-top:4px solid var(--pc);background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 9%,var(--card)),var(--card) 160px)}
+#calc .card h2,#calc .card h3,details.card>summary{color:var(--pc)}
+#calc th{background:color-mix(in srgb,var(--pc) 16%,transparent);color:var(--ink);border-radius:4px}
+#calc tbody tr:nth-child(even) td,#calc tr:nth-child(even) td{background:color-mix(in srgb,var(--pc) 5%,transparent)}
+#calc .stat span{background:color-mix(in srgb,var(--pc) 14%,var(--card));border:1px solid color-mix(in srgb,var(--pc) 38%,transparent)}#calc .stat b{color:var(--pc);font-size:24px}
+#calc .btn.p{background:var(--pc);border-color:var(--pc);color:#fff}#calc .btn:not(.p):hover{border-color:var(--pc);color:var(--pc)}
+#calc input:focus,#calc select:focus{outline:2px solid var(--pc);border-color:var(--pc)}
+#calc .ok,#calc .bad{padding:2px 10px;border-radius:99px}#calc .ok{background:color-mix(in srgb,var(--ok) 18%,transparent)}#calc .bad{background:color-mix(in srgb,var(--bad) 18%,transparent)}
+#calc .nt{border-color:color-mix(in srgb,var(--pc) 45%,transparent)}#calc .nt summary{color:var(--pc);font-weight:600}
+#ch{border-radius:10px;background:#fff}
+@media(prefers-reduced-motion:reduce){.opts a{animation:none}}
+#calc .stat span.eq{display:block;flex:1 1 100%;white-space:nowrap;font-size:16px;color:var(--ink);padding:12px 18px}#calc .stat span.eq b{display:inline;font-size:22px}
+#vt{display:none}.vc.bot.hide{display:none}
+@media(max-width:860px){.v3 #v{height:64vh}#vt{display:inline-block}.vc.top{max-width:calc(100% - 20px)}.vc.top .btn{font-size:12px;padding:6px 10px}
+.vc.bot{flex-wrap:nowrap;overflow-x:auto;gap:5px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.vc.bot::-webkit-scrollbar{display:none}.vc.bot .btn{flex:none;white-space:nowrap;font-size:12px;padding:6px 10px}}
+</style></head><body class="lock">
+<div id="intro"><canvas id="ic"></canvas><div class="c"><div id="icnt">0</div><div id="iph">Memuat 5 fase</div><button id="enter">Klik untuk masuk</button></div></div>
+<section id="home" class="view hero on"><canvas id="hc"></canvas>
+<div class="hn"><b>Projek Spektro Fosfat</b><a data-go="d3">3D Spektrofotometri</a><a data-go="calc">Kalkulator</a><a data-go="about">Tentang Kami</a><button class="thm">Tema</button></div>
+<div class="in"><div class="eyebrow">Digitalisasi instrumentasi · Spektrofotometri UV-Vis</div><h1>Analisis Kadar Fosfat</h1>
+<p>Hitung kadar fosfat pada air, sayur, dan bahan pangan dari data spektrofotometri: kurva kalibrasi, kadar sampel, presisi, dan akurasi, lengkap dengan model 3D spektrofotometer dan simulasi jalur cahayanya.</p>
+<div class="opts"><a data-go="d3" style="--c:#38bdf8"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg></i><b>01</b><h3>3D Spektrofotometri</h3><span>Masuk ke dalam alat, lihat tiap komponen, dan jalankan simulasi jalur cahaya</span><em>Buka →</em></a><a data-go="calc" style="--c:#34d399"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h2M12 11h2M8 15h2M12 15h2M8 19h8"/></svg></i><b>02</b><h3>Kalkulator</h3><span>Kurva kalibrasi, kadar sampel, presisi, akurasi, dan laporan otomatis</span><em>Buka →</em></a><a data-go="about" style="--c:#fbbf24"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c3 0 5 1.5 5 5"/></svg></i><b>03</b><h3>Tentang Kami</h3><span>Tujuan projek dan anggota kelompok</span><em>Buka →</em></a></div></div></section>
+<div class="view" id="d3"><div class="vbar"><a class="back" data-go="home">← Beranda</a><h2>3D Spektrofotometri</h2><span class="sp"></span><button class="thm">Tema</button></div>
+<div class="v3"><div id="v"><div id="ld">Memuat model 3D…</div>
+<div class="vc top"><button class="btn p" id="mb">Mulai simulasi</button><button class="btn" id="pz">Pause</button><button class="btn" id="spd">Kecepatan: 1×</button><button class="btn" id="vt">Kontrol ▾</button></div>
+<div class="vc bot"><button class="btn p" id="tur">Tur bagian dalam</button><button class="btn" id="nx">Berikutnya</button><button class="btn" id="lid">Buka penutup</button><button class="btn" id="xr">Tampak dalam: mati</button><button class="btn" id="lb">Label</button><button class="btn" id="fl">Ikuti berkas: OFF</button><button class="btn" id="rot">Putar otomatis: aktif</button><button class="btn" id="rst">Lihat semua</button></div></div>
+<aside class="panel"><h3>Bagian dalam spektrofotometer</h3><div class="chips" id="chips"></div><div id="info"></div>
+<details><summary>Daftar komponen dan fungsi</summary><div class="ov"><table id="bt"></table></div></details>
+<h3>Simulasi</h3><div class="grid"><div><label>Jenis sampel</label><select id="sj"><option value="air">Air keran</option><option value="pupuk">Pupuk</option><option value="pangan">Bahan pangan (sayur)</option></select></div><div><label>Larutan yang diukur</label><select id="sl"></select></div></div>
+<p class="mut" id="cr"></p>
+<p><button class="btn" id="ma">Isi absorbansi deret standar</button></p><p class="mut">Klik nomor komponen, atau pakai tombol di dalam kotak 3D (tur, simulasi, tampak dalam, label, dan lainnya).</p>
+<ol class="steps" id="stp"></ol><canvas id="pc2" width="512" height="320" style="width:100%;border-radius:6px;border:1px solid var(--ln)"></canvas>
+<p class="mut">Seret untuk memutar, scroll untuk zoom, klik bagian instrumen untuk detail. Hasil pengukuran otomatis masuk ke Kalkulator.</p></aside></div></div>
+<div class="view" id="calc"><div class="vbar"><a class="back" data-go="home">← Beranda</a><h2>Kalkulator</h2>
+<div class="sbn" id="ctabs"><a data-tab="0" class="on">1. Senyawa</a><a data-tab="1">2. Standar</a><a data-tab="2">3. Kurva</a><a data-tab="3">4. Sampel</a><a data-tab="4">5. Mutu</a><a data-tab="5">6. Laporan</a></div><span class="sp"></span><button class="thm">Tema</button></div>
+<div class="wrap"><h2 class="ah" style="margin-top:6px">Kalkulator</h2><p class="sd">Isi data pengamatan atau pakai hasil simulasi 3D. Kurva kalibrasi, kadar, kontrol mutu, dan laporan terhitung otomatis. Nilai awal hanya contoh, ganti dengan data praktikum.</p>
+<div class="pn on" data-p="0"><div class="card" id="s-info"><h2>Info senyawa</h2><div class="ov"><table><tr><th>Besaran</th><th>Keterangan</th></tr>
+<tr><td class="l">Standar</td><td class="l"><b>Kalium dihidrogen fosfat (KH₂PO₄)</b>, anhidrat</td></tr><tr><td class="l">Mr / CAS</td><td class="l">136,09 g/mol / 7778-77-0</td></tr>
+<tr><td class="l">Analit</td><td class="l">Ortofosfat (PO₄³⁻), Mr 94,97 g/mol; dilaporkan sebagai mg P/L atau mg P/kg (Ar P 30,974)</td></tr>
+<tr><td class="l">Senyawa terukur</td><td class="l">Kompleks biru molibden, serapan maksimum 880 nm</td></tr><tr><td class="l">Rentang</td><td class="l">0,01-1,0 mg/L P, kuvet 1 cm</td></tr></table></div><details class="nt"><summary>Rumus dan catatan</summary><p class="mut">Data identitas senyawa; cocokkan dengan PubChem/SNI bila dibutuhkan.</p></details></div><details class="card"><summary>Reaksi dan prosedur ringkas</summary>
+<p>Dalam suasana asam, ortofosfat bereaksi dengan amonium molibdat dan kalium antimonil tartrat membentuk asam fosfomolibdat, lalu direduksi asam askorbat menjadi kompleks biru molibden. Absorbansi dibaca pada 880 nm (rentang 0,01-1,0 mg/L P).</p>
+<div class="ov"><table><tr><th>Larutan</th><th>Pembuatan</th></tr>
+<tr><td class="l">H₂SO₄ 5 N</td><td class="l">70 mL H₂SO₄ pekat ke 300 mL air suling (penangas es), encerkan sampai 500 mL</td></tr>
+<tr><td class="l">K-antimonil tartrat</td><td class="l">1,3715 g dalam labu 500 mL</td></tr>
+<tr><td class="l">Amonium molibdat</td><td class="l">20 g dalam 500 mL air suling</td></tr>
+<tr><td class="l">Asam askorbat 0,1 M</td><td class="l">1,76 g dalam 100 mL (stabil 1 minggu, 4 °C)</td></tr>
+<tr><td class="l">Larutan campuran</td><td class="l">50 mL H₂SO₄ 5 N + 5 mL antimonil tartrat + 15 mL molibdat + 30 mL askorbat (stabil 4 jam; bila biru, jangan dipakai)</td></tr>
+<tr><td class="l">Pereaksi ke sampel/standar</td><td class="l">10 mL larutan + 1,6 mL pereaksi kombinasi, diamkan 10 menit sampai biru, ukur pada λ maks</td></tr></table></div>
+<h3>Preparasi sampel</h3><p><b>Pangan (kurma/sayur):</b> pisahkan, cuci, oven 60-70 °C sampai bobot konstan, giling, ayak 0,4 mm; timbang 0,5-1,0 g, tambah 10-20 mL H₂SO₄ 5 N, panaskan 80-100 °C 30-60 menit, dinginkan, saring, encerkan. <b>Air:</b> saring dan cek keasaman dengan indikator PP (jika merah, tambah H₂SO₄ 5 N tetes demi tetes sampai tak berwarna).</p></details><div class="pnav"><span></span><button class="btn p" data-tab="1">Lanjut: Standar →</button></div></div><div class="pn" data-p="1"><div class="card" id="s-std"><h2>1. Larutan standar induk dan deret standar</h2>
+<div class="grid"><div><label>Bobot KH₂PO₄ (g)</label><input id="m" value="0.2195"></div><div><label>V labu induk (mL)</label><input id="vi" value="100"></div><div><label>Ar P</label><input id="ar" value="30.974"></div><div><label>BM KH₂PO₄</label><input id="bm" value="136.086"></div><div><label>Pipet induk → baku 1 (mL / labu mL)</label><input id="v1" value="2"> <input id="v1l" value="100"></div><div><label>Pipet baku 1 → baku 2 (mL / labu mL)</label><input id="v2" value="10"> <input id="v2l" value="50"></div></div>
+<div class="stat"><span>C induk <b id="ci"></b> mg/L</span><span>C baku 1 <b id="c1"></b> mg/L</span><span>C baku 2 <b id="c2"></b> mg/L</span></div>
+<details class="nt"><summary>Rumus dan catatan</summary><p class="mut">C induk = (Ar P / BM KH₂PO₄) × bobot (mg) / V (L).</p></details>
+</div><div class="card"><h2>Deret standar dan absorbansi (880 nm)</h2><p><button class="btn" id="ex">Isi data contoh (3 sampel simulasi)</button> <button class="btn" id="clr">Kosongkan</button></p>
+<div class="ov"><table id="std"></table></div>
+</div><div class="pnav"><button class="btn" data-tab="0">← Senyawa</button><button class="btn p" data-tab="2">Lanjut: Kurva →</button></div></div><div class="pn" data-p="2"><div class="card"><h2>Kurva kalibrasi</h2><div class="row" id="s-curve" style="margin-top:12px"><div><canvas id="ch" width="640" height="380"></canvas></div><div id="reg"></div></div>
+</div><div class="pnav"><button class="btn" data-tab="1">← Standar</button><button class="btn p" data-tab="3">Lanjut: Sampel →</button></div></div><div class="pn" data-p="3"><div class="card" id="s-smp"><h2>2. Sampel (ulangan = baris dengan kode sama)</h2>
+<div class="ov"><table id="smp"></table></div><button class="btn" id="addS">+ Tambah ulangan</button>
+<details class="nt"><summary>Rumus dan catatan</summary><p class="mut">Pangan: kadar P (mg/kg) = Cs × V labu (mL) × Fp / bobot (g). Air: kadar P (mg/L) = Cs × Fp, fosfat = P × BM PO₄ / Ar P.</p></details>
+<div class="ov" id="res"></div></div><div class="pnav"><button class="btn" data-tab="2">← Kurva</button><button class="btn p" data-tab="4">Lanjut: Mutu →</button></div></div><div class="pn" data-p="4"><div class="card" id="s-qc"><h2>3. Kontrol akurasi (spike sampel pangan)</h2>
+<div class="ov"><table id="spk"></table></div><button class="btn" id="addK">+ Tambah spike</button>
+<details class="nt"><summary>Rumus dan catatan</summary><p class="mut">C2 = Vstd × Cstd / ms; % Rec = (C3 − f·C1) / C2 × 100. f = fraksi sampel dalam tabung (air: 9 mL dari 10 mL = 0,9; pangan/pupuk = 1).</p></details><div class="ov" id="rsp"></div></div><div class="pnav"><button class="btn" data-tab="3">← Sampel</button><button class="btn p" data-tab="5">Lanjut: Laporan →</button></div></div><div class="pn" data-p="5"><div id="lp"></div><div class="card" id="repc"><h2>Laporan</h2>
+<div class="grid"><div><label>Nama analis</label><input id="nm"></div><div><label>Tanggal</label><input id="tg" type="date"></div><div><label>Judul sampel</label><input id="jd" value="Kurma dan air"></div></div>
+<p><button class="btn p" id="mk">Susun laporan</button> <button class="btn" onclick="print()">Cetak / simpan PDF</button></p>
+<div id="rep">Tekan "Susun laporan" setelah data kalkulator terisi.</div></div><div class="pnav"><button class="btn" data-tab="4">← Mutu</button><span></span></div></div></div></div>
+<div class="view" id="about"><div class="vbar"><a class="back" data-go="home">← Beranda</a><h2>Tentang Kami</h2><div class="sbn"><a data-sc="ab-goal">Tujuan</a><a data-sc="ab-team">Kelompok</a></div><span class="sp"></span><button class="thm">Tema</button></div>
+<div class="wrap"><h2 class="ah" id="ab-goal">Tujuan</h2><p class="sd">Target pencapaian web ini, diambil dari brief projek dan diktat praktik penetapan fosfor.</p><div class="goal" id="goal"></div>
+<h2 class="ah" id="ab-team">Kelompok</h2><p class="sd">Ganti daftar anggota pada array <code>TIM</code> di bagian script.</p><div class="goal" id="tim"></div></div></div>
+<footer>Projek Spektrofotometri UV-Vis · Politeknik AKA Bogor · Acuan: SNI 06-6989.31-2005 dan Diktat Praktik ke-8</footer>
+<script>
+(function(){
+var gid=function(i){return document.getElementById(i)},q=function(x){return document.querySelectorAll(x)};
+var GOALS=[['Mendigitalkan data pengamatan','Absorbansi deret standar dan sampel diisi langsung di layar, tanpa lembar data kertas.'],['Menghitung otomatis','Regresi linear, koefisien korelasi (r), dan konsentrasi sampel keluar tanpa hitung manual.'],['Menampilkan kurva kalibrasi','Grafik absorbansi terhadap konsentrasi lengkap dengan titik standar.'],['Menetapkan kadar fosfat','Fosfat air (mg/L) dan fosfat sayur atau bahan pangan (mg/kg) dari beberapa ulangan.'],['Mengontrol mutu analisis','Presisi dari %RPD atau %RSD, akurasi dari %Recovery, dengan batas keberterimaan.'],['Menyajikan laporan hasil','Ringkasan hasil dengan estimasi LOD dan LOQ, bisa dicetak atau disimpan sebagai PDF.'],['Menampilkan model 3D instrumen','Agilent Cary 60 yang bisa diputar 360°, bagian dalamnya terlihat jelas dengan penjelasan tiap komponen dan simulasi jalur cahaya.'],['Bisa dipakai di laptop dan HP','Tampilan menyesuaikan ukuran layar; data contoh bisa diganti dengan data praktikum.']];
+var TIM=[['Nama anggota 1','NIM'],['Nama anggota 2','NIM'],['Nama anggota 3','NIM'],['Nama anggota 4','NIM']];
+function card(t,i,p){return '<div><b>'+String(i+1).padStart(2,'0')+'</b><h3>'+t[0]+'</h3><p class="mut">'+(p?'NIM: ':'')+t[1]+'</p></div>'}
+gid('goal').innerHTML=GOALS.map(function(t,i){return card(t,i,0)}).join('');gid('tim').innerHTML=TIM.map(function(t,i){return card(t,i,1)}).join('');
+q('.thm').forEach(function(b){b.onclick=function(){var r=document.documentElement,d=(r.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark';r.dataset.theme=d?'light':'dark';q('.thm').forEach(function(x){x.textContent=d?'Tema: terang':'Tema: gelap'})}});
+function show(id){q('.view').forEach(function(v){v.classList.toggle('on',v.id==id)});window.scrollTo(0,0);try{window.dispatchEvent(new Event('resize'))}catch(e){}}
+function calcTab(i){q('#calc .pn').forEach(function(p,k){p.classList.toggle('on',k==i)});q('#ctabs a').forEach(function(a,k){a.classList.toggle('on',k==i)});window.scrollTo(0,0);if(i==5&&window.mk){try{mk()}catch(e){}}}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-go],[data-sc],[data-tab]');if(!a)return;e.preventDefault();if(a.dataset.tab!==undefined)calcTab(+a.dataset.tab);else if(a.dataset.go)show(a.dataset.go);else{var el=gid(a.dataset.sc);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}});
+function spec(cv,t){var g=cv.getContext('2d'),w=cv.width=cv.clientWidth,h=cv.height=cv.clientHeight;g.fillStyle='#050b12';g.fillRect(0,0,w,h);var px=w*.55,py=h*.56;
+ var gr=g.createLinearGradient(0,0,px,0);gr.addColorStop(0,'rgba(255,255,255,0)');gr.addColorStop(1,'rgba(255,255,255,.9)');g.strokeStyle=gr;g.lineWidth=3;g.beginPath();g.moveTo(0,py+Math.sin(t)*8);g.lineTo(px-30,py);g.stroke();
+ for(var k=0;k<7;k++){var x=((t*140+k*px/7)%px);g.fillStyle='rgba(255,255,255,.8)';g.beginPath();g.arc(x,py+(1-x/px)*Math.sin(t)*8,2.5,0,7);g.fill()}
+ g.fillStyle='rgba(160,200,255,.10)';g.strokeStyle='rgba(180,215,255,.55)';g.lineWidth=1.5;g.beginPath();g.moveTo(px,py-80);g.lineTo(px+70,py+45);g.lineTo(px-70,py+45);g.closePath();g.fill();g.stroke();
+ for(var i=0;i<48;i++){var u=i/47,a=-.4+u*.8+Math.sin(t*.8)*.02;g.strokeStyle='hsla('+(280-u*280)+',100%,60%,.5)';g.lineWidth=2;g.beginPath();g.moveTo(px+28,py+6);g.lineTo(w,py+6+Math.tan(a)*(w-px));g.stroke()}}
+var introDone=false,heroVis=true,ip=0,PHN=['Menyiapkan lampu','Memasang monokromator','Memuat kuvet','Menghubungkan detektor','Membuka perangkat lunak'];
+function ready(){gid('iph').textContent='Siap';gid('enter').classList.add('on')}
+var iv=setInterval(function(){ip=Math.min(100,ip+1+Math.floor(Math.random()*3));var k=Math.min(4,Math.floor(ip/20));gid('icnt').textContent=ip;gid('iph').textContent=PHN[k]+' ('+(k+1)+'/5)';if(ip>=100){clearInterval(iv);ready()}},45);
+setTimeout(ready,9000);
+function enter(){if(introDone)return;gid('intro').classList.add('out');introDone=true;document.body.classList.remove('lock')}
+gid('enter').onclick=enter;
+var vt=gid('vt');if(vt)vt.onclick=function(){var b=document.querySelector('.vc.bot');b.classList.toggle('hide');vt.textContent=b.classList.contains('hide')?'Kontrol ▴':'Kontrol ▾'};
+(function bg(t){requestAnimationFrame(bg);try{if(!introDone)spec(gid('ic'),t/1000);else if(heroVis&&gid('home').classList.contains('on'))spec(gid('hc'),t/1000)}catch(e){}})(0);
+if(window.IntersectionObserver)new IntersectionObserver(function(e){heroVis=e[0].isIntersecting}).observe(gid('home'));
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=i=>document.getElementById(i),N=i=>parseFloat($(i).value),f=(x,n=3)=>isFinite(x)?x.toFixed(n):'-';
+if(window.IntersectionObserver)new IntersectionObserver(e=>{vis=e[0].isIntersecting},{rootMargin:'100px'}).observe($('v'));
+
+/* ===== 3D ===== */
+const C=[
+{id:'lamp',n:'Lampu kilat xenon',w:15,p:[-2.4,1,.6],x:1,t:'Cary 60 memakai lampu xenon yang berkedip (flash) singkat, bukan menyala terus. Pelepasan listrik pada gas xenon menghasilkan cahaya polikromatik kontinu dari UV sampai NIR (190-1100 nm), jadi 880 nm yang dipakai untuk fosfat tercakup. Karena hanya menyala saat pengukuran, lampu awet dan sampel tidak terpanaskan.'},
+{id:'opt',n:'Celah masuk, lensa, dan filter',w:10,p:[-1.6,1,.6],x:1,t:'Lensa mengumpulkan cahaya lampu, celah masuk membatasi lebar berkas, dan filter membuang orde difraksi lain. Celah yang sempit memperbaiki resolusi, tetapi cahaya yang sampai ke detektor berkurang.'},
+{id:'mono',n:'Monokromator Czerny-Turner (kisi difraksi)',w:25,p:[-1.1,1,-.7],x:1,t:'Cermin kolimator meluruskan berkas ke kisi difraksi. Kisi memecah cahaya putih menjadi spektrum, lalu kisi berputar sehingga hanya panjang gelombang yang dipilih (λ maks = 880 nm) yang jatuh ke celah keluar. Hasilnya berkas monokromatik, syarat berlakunya Hukum Lambert-Beer.'},
+{id:'cuv',n:'Kompartemen sampel (kuvet 1 cm)',w:15,p:[.9,1,.6],x:1,t:'Penutup ditutup agar cahaya luar tidak masuk. Di kuvet, kompleks biru molibden (hasil reduksi asam fosfomolibdat oleh asam askorbat) menyerap foton 880 nm sehingga intensitas turun dari I₀ ke I. Semakin pekat birunya, semakin besar A = ε·b·c. Blanko dipakai untuk menetapkan baseline 0 A.'},
+{id:'det',n:'Detektor fotodioda silikon',w:20,p:[2.45,1,.6],x:1,t:'Foton yang lolos kuvet mengenai fotodioda silikon dan menghasilkan arus listrik sebanding intensitasnya. Cary 60 berkas ganda (dual beam), jadi detektor referensi memantau I₀ untuk mengoreksi kedipan lampu. Dari kedua sinyal didapat transmitan T = I/I₀.'},
+{id:'pc',n:'Komputer dan perangkat lunak Cary WinUV',w:15,p:[6.6,2.2,-.6],x:0,t:'Sinyal dari detektor didigitalkan dan dikirim ke komputer. Perangkat lunak mengubahnya menjadi absorbansi A = −log T, menampilkan spektrum dan nilai A pada 880 nm, lalu data dicatat ke tabel dan dipakai untuk kurva kalibrasi serta perhitungan kadar.'}];
+$('bt').innerHTML='<tr><th>Komponen</th><th>Fungsi singkat</th></tr>'+C.map(c=>`<tr><td class="l">${c.n}</td><td class="l">${c.t.split('. ')[0]}.</td></tr>`).join('');
+const A0=.003,B0=.652,TRUE={air:.275,pupuk:.33,pangan:.5};
+const PRE={air:{k:'Air keran',m:'',vl:10,fp:1,sm:10,vs:1,cs:2,add:.2,f:.9,nm:'Air keran'},pupuk:{k:'Pupuk',m:'0.1000',vl:100,fp:200,sm:'0.1000',vs:8,cs:500,add:.2,f:1,nm:'Pupuk'},pangan:{k:'Sayur',m:'2.0000',vl:50,fp:20,sm:'2.0000',vs:.5,cs:500,add:.25,f:1,nm:'Sayur'}};
+const CARA={air:'Air keran ±100 mL disaring dengan kertas saring, lalu diasamkan dengan H₂SO₄ 0,5 N sampai pH 3. Presisi: 10 mL sampel + 1,6 mL pereaksi kombinasi. Akurasi (spike): 9 mL sampel + 1 mL standar P 2 mg/L (setara 0,2 mg/L) + 1,6 mL pereaksi.',pupuk:'Timbang 0,1 g dua kali (presisi), 0,1 g + 8 mL standar P 500 mg/L (akurasi), dan satu blanko. Tambah 5 mL HNO₃ pekat, panaskan 100 °C sampai keruh, dinginkan, tambah 2 mL HClO₄, panaskan 150 °C sampai bening (lemari asam, hati-hati). Pindahkan ke labu 100 mL dan tera, pipet 0,5 mL ke labu 100 mL dan tera (Fp 200), lalu 10 mL ke tabung ulir + 1,6 mL pereaksi.',pangan:'Sampel sayur kering ±2,0000 g + 10-20 mL H₂SO₄ 5 N, panaskan 80-100 °C selama 30-60 menit, dinginkan, saring. Pipet 10 mL ke tabung ulir + 1,6 mL pereaksi kombinasi, diamkan 10 menit sampai muncul biru.'};
+const STEPS=['Larutan biru siap: dipipet ke kuvet, kuvet dibawa ke instrumen.','Penutup kompartemen dibuka, kuvet dimasukkan, penutup ditutup.','Lampu xenon berkedip: cahaya polikromatik dihasilkan.','Monokromator: kisi memilih 880 nm, panjang gelombang lain dibuang.','Kuvet: kompleks biru molibden menyerap sebagian foton (I₀ → I).','Detektor: foton menjadi arus, dihitung T = I/I₀.','Komputer: A = −log T tampil di Cary WinUV dan masuk tabel data.'];
+const STT=[0,1.9,3.5,4.4,5.1,5.9,6.5,7.8],OPT=[['Blanko','blk'],...[0,1,2,3,4,5,6].map(i=>['Standar '+(i/10).toFixed(1)+' mg/L','std:'+i]),['Sampel ulangan 1','r1'],['Sampel ulangan 2','r2'],['Spike (akurasi)','spk']];
+let R,S,Cam,G,az=.55,el=.8,dc=15,dtgt=15,auto=true,xr=false,drag=null,MS=null,LOG=[],pcDirty=true,pcCv,pcg,pc2,pcTex,CV,CVL,LID,skin=[],photons=[],beam,lampB,tgt=window.THREE?new THREE.Vector3(1.2,1.1,0):null,tgc=window.THREE?new THREE.Vector3(1.2,1.1,0):null;
+let VT=0,LT=performance.now()/1000,paused=false,spd=1,follow=false,labels=false,lidMan=false,LBL=[],vis=true,GR={},HB,tour=false,ti=-1,tT=0;
+function init(){const v=$('v');R=new THREE.WebGLRenderer({antialias:true});R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));R.setClearColor(0x0f1a26);v.appendChild(R.domElement);
+S=new THREE.Scene();Cam=new THREE.PerspectiveCamera(38,1,.1,100);S.add(new THREE.HemisphereLight(0xffffff,0x445566,.85));const dl=new THREE.DirectionalLight(0xffffff,.9);dl.position.set(5,10,8);S.add(dl);G=new THREE.Group();S.add(G);
+const M=(g,c,o={})=>new THREE.Mesh(g,new THREE.MeshStandardMaterial(Object.assign({color:c,metalness:.15,roughness:.5},o))),B=(w,h,d,c,o)=>M(new THREE.BoxGeometry(w,h,d),c,o),Y=(r,h,c,o)=>M(new THREE.CylinderGeometry(r,r,h,24),c,o),add=(g,m,x,y,z)=>{m.position.set(x,y,z);g.add(m);return m};
+add(G,B(17,.3,7.6,0xcfd5db,{roughness:.8}),2.2,-.15,.2);add(G,B(17.2,.9,7.7,0x38424d),2.2,-.75,.2);
+const shell=add(G,B(6.4,1.75,3.2,0xeef1f4,{roughness:.35,transparent:true}),0,.875,0);skin.push(shell);add(G,B(6.5,.3,3.3,0x4a5561),0,.15,0);
+const cap=add(G,B(6.3,.06,3.1,0xdfe4e9,{transparent:true}),0,1.78,0);skin.push(cap);
+[[-2.9,-1.4],[2.9,-1.4],[-2.9,1.4],[2.9,1.4]].forEach(f=>add(G,Y(.15,.12,0x222),f[0],.04,f[1]));
+const lc=document.createElement('canvas');lc.width=512;lc.height=96;const lg=lc.getContext('2d');lg.fillStyle='#eef1f4';lg.fillRect(0,0,512,96);lg.fillStyle='#1a2b3c';lg.font='bold 44px sans-serif';lg.fillText('Agilent Cary 60',16,48);lg.fillStyle='#4a5a6a';lg.font='26px sans-serif';lg.fillText('UV-Vis Spectrophotometer',18,84);
+const lbl=new THREE.Mesh(new THREE.PlaneGeometry(2.6,.5),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(lc),transparent:true}));lbl.position.set(-1.8,1.2,1.61);G.add(lbl);skin.push(lbl);
+[0x3ddc84,0xffb020].forEach((c,i)=>skin.push(add(G,B(.12,.12,.04,c,{emissive:c,emissiveIntensity:.8,transparent:true}),2.4+i*.3,1.2,1.61)));
+skin.push(add(G,B(1.6,.05,1.6,0xc5ccd3,{transparent:true}),.9,1.83,.6));LID=new THREE.Group();LID.position.set(.9,1.88,-.05);G.add(LID);add(LID,B(1.5,.1,1.35,0x27303b,{transparent:true,opacity:.8}),0,0,.7);
+const grp=GR;C.forEach(c=>{const g=new THREE.Group();g.position.set(c.p[0],0,c.p[2]);g.userData.id=c.id;G.add(g);grp[c.id]=g});
+lampB=add(grp.lamp,M(new THREE.SphereGeometry(.28,24,16),0xb9a8ff,{emissive:0x8a6cff,emissiveIntensity:.15,transparent:true,opacity:.85}),0,1,0);add(grp.lamp,Y(.04,.7,0x888),0,1,0).rotation.z=Math.PI/2;add(grp.lamp,B(.7,.55,.7,0x59616b),-.45,.6,0);add(grp.lamp,B(.08,.5,.5,0x59616b),.4,.6,0);
+const ln=M(new THREE.SphereGeometry(.4,24,16),0x9fd4ff,{transparent:true,opacity:.5});ln.scale.set(.3,1,1);add(grp.opt,ln,-.25,1,0);add(grp.opt,B(.06,.5,.5,0x111),.35,1.35,0);add(grp.opt,B(.06,.5,.5,0x111),.35,.65,0);add(grp.opt,Y(.4,.05,0x7a8794),.1,.55,.4).rotation.x=Math.PI/2;add(grp.opt,B(.5,.2,.6,0x3a434d),0,.12,0);
+add(grp.mono,B(2.3,.8,1.3,0x242b33,{transparent:true,opacity:.55}),0,.55,.1);add(grp.mono,B(.5,.6,.05,0xd8dee4,{metalness:.9,roughness:.2}),0,1,0).rotation.y=.5;
+[-.8,.8].forEach(x=>{const m=M(new THREE.SphereGeometry(1.1,20,12,0,6.3,0,.4),0xc9d1d8,{metalness:.9,roughness:.15,side:THREE.DoubleSide});m.rotation.z=x<0?-Math.PI/2:Math.PI/2;add(grp.mono,m,x,1,.5)});
+add(grp.cuv,B(1.5,.12,1.5,0x4a5561),0,.34,0);add(grp.cuv,B(.06,.9,.5,0x2c333b),-.3,.8,0);add(grp.cuv,B(.06,.9,.5,0x2c333b),.3,.8,0);
+add(grp.det,B(.9,.8,.9,0x2e3640),.15,.8,0);add(grp.det,Y(.17,.06,0x58d68d,{emissive:0x1b8f4d,emissiveIntensity:.6}),-.32,1,0).rotation.z=Math.PI/2;add(grp.det,B(.4,.1,.4,0x3a4a3a),-1.3,.7,.5);
+pcCv=document.createElement('canvas');pcCv.width=512;pcCv.height=320;pcg=pcCv.getContext('2d');pcTex=new THREE.CanvasTexture(pcCv);pc2=$('pc2').getContext('2d');
+const P=grp.pc;P.rotation.y=-.3;add(P,B(3.3,2.1,.15,0x1c2128),0,2.5,0);const sc=new THREE.Mesh(new THREE.PlaneGeometry(3,1.88),new THREE.MeshBasicMaterial({map:pcTex}));sc.position.set(0,2.5,.09);P.add(sc);add(P,Y(.12,.9,0x2a3038),0,1.5,0);add(P,B(1.1,.08,.7,0x2a3038),0,1,.1);add(P,B(2.2,.08,.7,0x2a3038),0,.08,1.6);add(P,B(.3,.06,.45,0x2a3038),1.6,.08,1.6);add(P,B(1,2.1,1.5,0x2a3038),2.6,1.05,0);
+const rk=new THREE.Group();rk.position.set(-3.9,0,2.1);G.add(rk);add(rk,B(1.6,.12,.6,0xd9dee3),0,.06,0);[[-.5,0xdfeefa],[0,0xece3b0],[.5,0xd3df9e]].forEach(a=>{add(rk,Y(.17,1.1,0xcfe8ff,{transparent:true,opacity:.4}),a[0],.65,0);add(rk,Y(.14,.7,a[1],{transparent:true,opacity:.85}),a[0],.45,0)});
+CV=new THREE.Group();G.add(CV);add(CV,B(.45,1,.45,0xbfe3ff,{transparent:true,opacity:.35}),0,0,0);CVL=add(CV,B(.38,.7,.38,0x2a6fd6,{transparent:true,opacity:.8}),0,-.1,0);CV.visible=false;
+for(let i=0;i<26;i++){const p=new THREE.Mesh(new THREE.SphereGeometry(.07,8,8),new THREE.MeshBasicMaterial({transparent:true}));p.userData={ph:i/26,last:1};G.add(p);photons.push(p)}
+beam=new THREE.Line(new THREE.BufferGeometry().setFromPoints(PATH.map(a=>new THREE.Vector3(...a))),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.25}));G.add(beam);
+const E=R.domElement,ray=new THREE.Raycaster(),mv=new THREE.Vector2();
+E.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,m:0};E.setPointerCapture(e.pointerId)});
+E.addEventListener('pointermove',e=>{if(!drag)return;az-=(e.clientX-drag.x)*.008;el=Math.max(-.1,Math.min(1.45,el+(e.clientY-drag.y)*.006));drag.m+=Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y);drag.x=e.clientX;drag.y=e.clientY});
+E.addEventListener('pointerup',e=>{if(drag&&drag.m<5){const r=E.getBoundingClientRect();mv.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(mv,Cam);const h=ray.intersectObjects(G.children,true)[0];if(h){let o=h.object;while(o&&!o.userData.id)o=o.parent;if(o)pick(o.userData.id)}}drag=null});
+E.addEventListener('wheel',e=>{e.preventDefault();dtgt=Math.max(4,Math.min(22,dtgt+e.deltaY*.01))},{passive:false});
+$('chips').innerHTML=C.map((c,i)=>`<button class="btn" data-id="${c.id}">${i+1}. ${c.n.split(' (')[0]}</button>`).join('');$('chips').onclick=e=>e.target.dataset.id&&pick(e.target.dataset.id);
+LBL=C.map(c=>{const d=document.createElement('div');d.className='lb';d.textContent=(C.indexOf(c)+1)+'. '+c.n.split(' (')[0];$('v').appendChild(d);return d});
+HB=new THREE.BoxHelper(grp.mono,0xffd23f);HB.visible=false;G.add(HB);labels=true;LBL.forEach(l=>l.style.display='block');$('lb').classList.add('on');
+$('tur').onclick=()=>{tour=!tour;ti=-1;tT=0;$('tur').textContent=tour?'Hentikan tur':'Tur bagian dalam';$('tur').classList.toggle('on',tour);if(tour)setX(true)};
+$('nx').onclick=()=>{ti=(ti+1)%C.length;pick(C[ti].id);tT=performance.now()/1000};
+$('pz').onclick=()=>{paused=!paused;$('pz').textContent=paused?'Lanjut':'Pause';$('pz').classList.toggle('on',paused)};
+$('spd').onclick=()=>{spd=spd==1?2:spd==2?.5:1;$('spd').textContent='Kecepatan: '+spd+'×'};
+$('lid').onclick=()=>{lidMan=!lidMan;$('lid').classList.toggle('on',lidMan);$('lid').textContent=lidMan?'Tutup penutup':'Buka penutup'};
+$('lb').onclick=()=>{labels=!labels;$('lb').classList.toggle('on',labels);LBL.forEach(l=>l.style.display=labels?'block':'none')};
+$('fl').onclick=()=>{follow=!follow;$('fl').textContent='Ikuti berkas: '+(follow?'ON':'OFF');$('fl').classList.toggle('on',follow)};
+$('rot').onclick=()=>{auto=!auto;$('rot').textContent='Putar otomatis: '+(auto?'aktif':'mati')};$('xr').onclick=()=>setX(!xr);$('rst').onclick=()=>{tgt.set(1.2,1.1,0);dtgt=15;setX(true);if(HB)HB.visible=false};
+$('sl').innerHTML=OPT.map(o=>`<option value="${o[1]}">${o[0]}</option>`).join('');$('sj').onchange=()=>$('cr').textContent=CARA[$('sj').value];$('sj').onchange();
+$('mb').onclick=()=>startMeas($('sj').value,$('sl').value);$('ma').onclick=quickStd;
+$('stp').innerHTML=STEPS.map(s=>`<li>${s}</li>`).join('');size();addEventListener('resize',size);if(window.ResizeObserver)new ResizeObserver(size).observe($('v'));pick('mono',1);setX(true);loop();$('ld').style.display='none'}
+const PATH=[[-2.4,1,.6],[-1.6,1,.6],[-1.1,1,-.7],[-.5,1,.6],[2.45,1,.6]],SL=[],PT=PATH.slice(1).reduce((s,a,i)=>{const d=Math.hypot(a[0]-PATH[i][0],a[1]-PATH[i][1],a[2]-PATH[i][2]);SL.push(d);return s+d},0);
+function pathPt(u){let L=u*PT,i=0;while(i<3&&L>SL[i]){L-=SL[i];i++}const a=PATH[i],b=PATH[i+1],f=L/SL[i];return[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f]}
+function setX(v){xr=v;$('xr').textContent='Tampak dalam: '+(v?'aktif':'mati')}
+function size(){const v=$('v');if(!R||!v.clientWidth)return;R.setSize(v.clientWidth,v.clientHeight);Cam.aspect=v.clientWidth/v.clientHeight;Cam.updateProjectionMatrix()}
+function pick(id,quiet){const c=C.find(k=>k.id==id);if(HB){if(!quiet&&GR[id]){HB.visible=true;HB.setFromObject(GR[id])}else HB.visible=false}tgt.set(c.p[0],c.p[1],c.p[2]);dtgt=id=='pc'?8:7;if(quiet){tgt.set(1.2,1.1,0);dtgt=15}else if(!MS)setX(!!c.x);
+$('info').innerHTML=`<h3>${c.n}</h3><p>${c.t}</p>`}
+const e3=t=>t<0?0:t>1?1:t*t*(3-2*t),lp=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+function sim(kind,type){const p=PRE[kind];if(type=='blk')return Math.abs((Math.random()-.5)*.002);let cs;if(type.startsWith('std'))cs=.1*(+type.split(':')[1]);else{const t=TRUE[kind]*(1+(Math.random()-.5)*.03);cs=type=='spk'?p.f*t+p.add*.97:t}return Math.max(0,A0+B0*cs+(Math.random()-.5)*.003)}
+function startMeas(kind,type){if(MS)return;const p=PRE[kind],nm=(OPT.find(o=>o[1]==type)||[type])[0];MS={t0:VT,kind,type,name:(type=='blk'?'Blanko':p.nm+' - '+nm.replace('Sampel ulangan ','ulangan ')),abs:sim(kind,type),pushed:0,xr0:xr};
+CVL.material.color.setRGB(.8-Math.min(.6,MS.abs*1.1),.9-Math.min(.5,MS.abs*.8),1-Math.min(.1,MS.abs*.2));CVL.material.opacity=type=='blk'?.15:.3+Math.min(.5,MS.abs);pcDirty=true;$('cr').textContent=CARA[kind];tgt.set(1.2,1.1,0);dtgt=11}
+function commit(m){const p=PRE[m.kind],t=m.type;if(t.startsWith('std'))document.querySelectorAll('.sa')[+t.split(':')[1]].value=m.abs.toFixed(4);else if(t=='r1'||t=='r2')addS([p.k,m.kind,p.m,m.abs.toFixed(4),p.vl,p.fp]);else if(t=='spk')addK([p.k,m.abs.toFixed(4),p.sm,p.vs,p.cs,p.vl,p.fp,p.f]);calc()}
+function stepMeas(now){if(!MS)return;const t=now-MS.t0,R0=[-3.4,.75,2.1],U=[-3.4,3.2,2.1],T=[.9,3.2,.6],D=[.9,.9,.6];
+const pos=t<.9?lp(R0,U,e3(t/.9)):t<1.9?lp(U,T,e3(t-.9)):t<2.7?lp(T,D,e3((t-1.9)/.8)):t<8.3?D:t<9.1?lp(D,T,e3((t-8.3)/.8)):T;CV.position.set(...pos);CV.visible=t<9.1;
+const la=t<1.2?0:t<1.8?e3((t-1.2)/.6):t<3?1:t<3.5?1-e3((t-3)/.5):t<7.8?0:t<8.3?e3((t-7.8)/.5):t<9.2?1:t<9.7?1-e3((t-9.2)/.5):0;LID.rotation.x=-1.5*la;
+if(t<6.5)setX(true);const si=STT.findIndex((s,i)=>t>=s&&t<STT[i+1]);document.querySelectorAll('#stp li').forEach((li,i)=>li.classList.toggle('on',i==si));
+if(si>=2&&si<=5){const id=['lamp','mono','cuv','det'][si-2],c=C.find(k=>k.id==id);tgt.set(c.p[0],c.p[1],c.p[2]);dtgt=7;if(MS.cur!=id){MS.cur=id;pickInfo(id)}}if(si==6&&MS.cur!='pc'){MS.cur='pc';pickInfo('pc');tgt.set(...C[5].p);dtgt=8;setX(false)}
+if(t>=6.8&&!MS.pushed){MS.pushed=1;LOG.push({n:LOG.length+1,name:MS.name,abs:MS.abs});commit(MS)}
+if(t>9.7){document.querySelectorAll('#stp li').forEach(li=>li.classList.remove('on'));setX(MS.xr0);MS=null;tgt.set(1.2,1.1,0);dtgt=15}pcDirty=true}
+function pickInfo(id){const c=C.find(k=>k.id==id);$('info').innerHTML=`<h3>${c.n}</h3><p>${c.t}</p>`}
+function drawPC(now){const g=pcg,W=512,H=320,t=MS?now-MS.t0:-1;g.fillStyle='#e9edf2';g.fillRect(0,0,W,H);g.fillStyle='#1b4f9c';g.fillRect(0,0,W,22);g.fillStyle='#fff';g.font='bold 12px sans-serif';g.fillText('Cary WinUV - Scan / Concentration  [Cary 60]',8,15);
+g.fillStyle='#222';g.font='11px sans-serif';g.fillText('File  Edit  View  Operations  Graph  Instrument  Tools  Window  Help',8,38);
+g.fillStyle='#fff';g.fillRect(8,48,226,218);g.strokeStyle='#8a97a6';g.strokeRect(8,48,226,218);g.fillStyle='#dfe6ee';g.fillRect(9,49,224,16);g.fillStyle='#222';g.fillText('No   Nama sampel              Abs',14,61);
+LOG.slice(-11).forEach((r,i)=>{g.fillStyle='#222';g.fillText(String(r.n).padEnd(3)+'  '+r.name.slice(0,22),14,80+i*17);g.fillText(r.abs.toFixed(4),190,80+i*17)});
+g.fillStyle='#fff';g.fillRect(242,48,262,218);g.strokeRect(242,48,262,218);const x0=268,x1=496,y0=244,y1=72,A=MS?MS.abs:0,ym=Math.max(.5,Math.ceil(A*12)/10);g.strokeStyle='#222';g.beginPath();g.moveTo(x0,y1-8);g.lineTo(x0,y0);g.lineTo(x1,y0);g.stroke();g.fillStyle='#222';g.font='10px sans-serif';
+[500,600,700,800,900,1000].forEach(w=>{const x=x0+(w-500)/500*(x1-x0);g.fillText(w,x-10,y0+12)});g.fillText('Abs',246,y1);g.fillText('nm',x1-12,y0+24);g.fillText(ym.toFixed(1),246,y1+8);
+const sp=w=>A*(Math.exp(-(((w-880)/85)**2))+.55*Math.exp(-(((w-710)/60)**2)))/1.05;
+if(MS&&t>=3.5){const p=Math.min(1,(t-3.5)/3);g.strokeStyle='#1f5fbf';g.lineWidth=2;g.beginPath();for(let k=0;k<=p*100;k++){const w=500+k*5,x=x0+(w-500)/500*(x1-x0),y=y0-sp(w)/ym*(y0-y1)*.95;k?g.lineTo(x,y):g.moveTo(x,y)}g.stroke();g.lineWidth=1;
+if(p>.76){const x=x0+(380/500)*(x1-x0);g.strokeStyle='#c8441e';g.beginPath();g.moveTo(x,y0);g.lineTo(x,y1+10);g.stroke();g.fillStyle='#c8441e';g.fillText('880 nm',x+4,y1+20)}}
+g.fillStyle='#0a1f12';g.fillRect(8,272,226,40);g.fillStyle='#5dff9a';g.font='bold 24px monospace';const show=MS&&t>=6.5?MS.abs.toFixed(4):(MS&&t>=3.5?'....':'0.0000');g.fillText('A '+show,16,300);
+g.fillStyle='#222';g.font='11px sans-serif';g.fillText(!MS?'Siap. Lampu xenon standby, 880 nm.':t<3.5?'Menunggu kuvet di kompartemen...':t<6.5?'Memindai 500-1000 nm...':'Selesai: data tersimpan ke tabel',244,292);if(MS)g.fillText(MS.name,244,308);pcTex.needsUpdate=true;pc2.drawImage(pcCv,0,0)}
+function photonsStep(now){const on=MS&&now-MS.t0>3.5&&now-MS.t0<7.8,T=MS?Math.pow(10,-MS.abs):1;beam.visible=!!on;lampB.material.emissiveIntensity=on?.6+.4*Math.random():.15;
+photons.forEach(p=>{const d=p.userData;if(!on){p.visible=false;return}p.visible=true;const u=(now*.25+d.ph)%1;if(u<d.last){d.s=Math.random()<.3;d.r=Math.random();d.h=Math.random()}d.last=u;let L=u*PT,i=0;while(i<3&&L>SL[i]){L-=SL[i];i++}const a=PATH[i],b=PATH[i+1],f=L/SL[i];p.position.set(a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f);const m=p.material;m.opacity=1;
+if(i==0)m.color.setHex(0xe6dcff);else if(i==1)m.color.setHex(0xffffff);else if(i==2){m.color.setHSL(d.h*.8,1,.6);if(!d.s)m.opacity=1-f}else{m.color.setHex(0xff2a2a);if(!d.s)m.opacity=0;else{const x=p.position.x;if(d.r>T&&x>.45)m.opacity=x>1.35?0:Math.max(0,1-(x-.45)/.45)}}})}
+function loop(){requestAnimationFrame(loop);if(!vis)return;const rn=performance.now()/1000;VT+=Math.min(.1,rn-LT)*(paused?0:spd*.4);LT=rn;const now=VT;if(tour&&!MS&&rn-tT>6.5){tT=rn;ti=(ti+1)%C.length;pick(C[ti].id)}if(auto&&!drag&&!MS)az+=.002;tgc.lerp(tgt,.06);dc+=(dtgt-dc)*.06;
+Cam.position.set(tgc.x+Math.sin(az)*Math.cos(el)*dc,tgc.y+Math.sin(el)*dc,tgc.z+Math.cos(az)*Math.cos(el)*dc);Cam.lookAt(tgc);
+const xo=xr?.05:1;skin.forEach(m=>{m.material.opacity+=(xo-m.material.opacity)*.15;m.material.depthWrite=m.material.opacity>.9});
+stepMeas(now);if(!MS)LID.rotation.x+=((lidMan?-1.5:0)-LID.rotation.x)*.12;
+if(follow&&MS){const t=now-MS.t0;if(t>3.4&&t<7.9){tgt.set(...pathPt(Math.min(1,Math.max(0,(t-3.5)/4.3))));dtgt=5.5}}
+if(labels){const w=$('v').clientWidth,h=$('v').clientHeight;C.forEach((c,i)=>{const p=new THREE.Vector3(c.p[0],c.p[1]+.9,c.p[2]).project(Cam);LBL[i].style.left=(p.x*.5+.5)*w+'px';LBL[i].style.top=(-p.y*.5+.5)*h+'px'})}
+photonsStep(now);if(MS||pcDirty){drawPC(now);pcDirty=!!MS}R.render(S,Cam)}
+function quickStd(){const a=[.0033,.0761,.1431,.2008,.2533,.3222,.3961];document.querySelectorAll('.sa').forEach((e,i)=>e.value=a[i].toFixed(4));calc()}
+/* ===== Kalkulator ===== */
+const steps=[0,.5,1,1.5,2,2.5,3];let REG=null,RES={},SP=[];
+function stdTable(){$('std').innerHTML='<tr><th>V baku 2 mg/L (mL)</th><th>V labu (mL)</th><th>Konsentrasi (mg/L)</th><th>Absorbansi</th></tr>'+steps.map((s,i)=>`<tr><td><input class="sv" value="${s}"></td><td><input class="sl" value="10"></td><td class="sc"></td><td><input class="sa" placeholder="0.000"></td></tr>`).join('')}
+function sampleTables(){$('smp').innerHTML='<tr><th>Kode</th><th>Jenis</th><th>Bobot (g)</th><th>Abs</th><th>V labu (mL)</th><th>Fp</th><th></th></tr>';$('spk').innerHTML='<tr><th>Kode</th><th>Abs C3</th><th>ms (g)</th><th>V std (mL)</th><th>C std (mg/L)</th><th>V labu (mL)</th><th>Fp</th><th>f sampel</th><th></th></tr>'}
+function addS(v=['K1','pangan','','', '50','10']){const r=$('smp').insertRow();r.innerHTML=`<td><input value="${v[0]}"></td><td><select>${['pangan','pupuk','air'].map(o=>`<option ${v[1]==o?'selected':''}>${o}</option>`).join('')}</select></td>`+[2,3,4,5].map(i=>`<td><input value="${v[i]}"></td>`).join('')+'<td><button class="btn" onclick="this.closest(\'tr\').remove();calc()">×</button></td>'}
+function addK(v=['K1','','','','500','50','10','1']){const r=$('spk').insertRow();r.innerHTML=[0,1,2,3,4,5,6,7].map(i=>`<td><input value="${v[i]}"></td>`).join('')+'<td><button class="btn" onclick="this.closest(\'tr\').remove();calc()">×</button></td>'}
+function reg(x,y){const n=x.length,mx=x.reduce((a,b)=>a+b)/n,my=y.reduce((a,b)=>a+b)/n;let sxy=0,sxx=0,syy=0;x.forEach((v,i)=>{sxy+=(v-mx)*(y[i]-my);sxx+=(v-mx)**2;syy+=(y[i]-my)**2});const b=sxy/sxx,a=my-b*mx,r=sxy/Math.sqrt(sxx*syy);let sse=0;x.forEach((v,i)=>sse+=(y[i]-a-b*v)**2);const s=n>2?Math.sqrt(sse/(n-2)):NaN;return{a,b,r,r2:r*r,s,n,lod:3.3*s/b,loq:10*s/b}}
+const sd=a=>{const m=a.reduce((x,y)=>x+y)/a.length;return a.length>1?Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1)):NaN},mean=a=>a.reduce((x,y)=>x+y)/a.length;
+function calc(){const ci=N('ar')/N('bm')*N('m')*1000/(N('vi')/1000),c1=ci*N('v1')/N('v1l'),c2=c1*N('v2')/N('v2l');$('ci').textContent=f(ci,2);$('c1').textContent=f(c1,3);$('c2').textContent=f(c2,3);
+const rows=[...$('std').rows].slice(1),X=[],Y=[];rows.forEach(r=>{const i=r.querySelectorAll('input'),c=c2*parseFloat(i[0].value)/parseFloat(i[1].value);r.querySelector('.sc').textContent=f(c,4);const a=parseFloat(i[2].value);if(isFinite(c)&&isFinite(a)){X.push(c);Y.push(a)}});
+REG=X.length>2?reg(X,Y):null;REG&&(REG.X=X,REG.Y=Y);
+$('reg').innerHTML=REG?`<h3>Persamaan regresi</h3><div class="stat"><span class="eq">Y = <b>${f(REG.a,4)}</b> + <b>${f(REG.b,4)}</b> X</span></div><div class="stat"><span>r <b>${f(REG.r,5)}</b></span><span>R² <b>${f(REG.r2,5)}</b></span></div><p class="${REG.r>=.995?'ok':'bad'}">${REG.r>=.995?'Linearitas memenuhi (r ≥ 0,995)':'Linearitas kurang (r < 0,995), periksa deret standar'}</p><p class="mut">Intersep a = ${f(REG.a,4)}, slope b = ${f(REG.b,4)} (pada diktat tertulis terbalik). Estimasi: s(y/x) = ${f(REG.s,4)}; LOD = 3,3·s/b = <b>${f(REG.lod,4)}</b> mg/L; LOQ = 10·s/b = <b>${f(REG.loq,4)}</b> mg/L.</p>`:'<p class="mut">Isi minimal 3 absorbansi standar untuk membuat kurva.</p>';
+RES={rows:[],g:{}};SP=[];if(REG){const PO4=94.971/N('ar');
+[...$('smp').rows].slice(1).forEach(r=>{const q=r.querySelectorAll('input,select'),k=q[0].value,j=q[1].value,m=parseFloat(q[2].value),ab=parseFloat(q[3].value),vl=parseFloat(q[4].value),fp=parseFloat(q[5].value)||1,cs=(ab-REG.a)/REG.b,kd=j=='air'?cs*fp:cs*vl*fp/m;if(!isFinite(kd))return;
+const o={k,j,m,ab,vl,fp,cs,kd,po4:j=='air'?kd*PO4:NaN,out:cs<.01||cs>1};RES.rows.push(o);(RES.g[k]=RES.g[k]||[]).push(o)});
+SP=[...$('spk').rows].slice(1).map(r=>{const q=[...r.querySelectorAll('input')].map(i=>i.value),k=q[0],ab=+q[1],ms=+q[2],c2=+q[3]*+q[4]/ms,cs=(ab-REG.a)/REG.b,c3=cs*+q[5]*(+q[6]||1)/ms,g=RES.g[k],c1=g?mean(g.map(o=>o.kd)):NaN;const f=+q[7]||1;return{k,ab,ms,c1,c2,c3,f,rec:(c3-f*c1)/c2*100}}).filter(o=>isFinite(o.rec))}
+draw();out()}
+function out(){let h='<table><tr><th>Kode</th><th>Ulangan</th><th>Abs</th><th>Cs (mg/L)</th><th>Kadar</th><th>Satuan</th><th>Catatan</th></tr>';const cnt={};
+RES.rows&&RES.rows.forEach(o=>{cnt[o.k]=(cnt[o.k]||0)+1;h+=`<tr><td>${o.k}</td><td>${cnt[o.k]}</td><td>${f(o.ab)}</td><td>${f(o.cs,4)}</td><td><b>${f(o.kd,2)}</b></td><td>${o.j=='air'?'mg P/L':'mg P/kg'}</td><td class="${o.out?'bad':''}">${o.out?'Cs di luar 0,01-1,0 mg/L, encerkan/ulangi':o.j=='air'?'PO₄ = '+f(o.po4,3)+' mg/L':''}</td></tr>`});
+h+='</table><h3>Presisi</h3><table><tr><th>Kode</th><th>n</th><th>Rerata</th><th>SD</th><th>%RSD</th><th>%RPD (n=2)</th></tr>';
+Object.entries(RES.g||{}).forEach(([k,a])=>{const v=a.map(o=>o.kd),m=mean(v),s=sd(v);const pd=v.length==2?Math.abs(v[0]-v[1])/m*100:NaN;a.stat={m,s,rsd:s/m*100,rpd:pd};h+=`<tr><td>${k}</td><td>${v.length}</td><td>${f(m,2)}</td><td>${f(s,3)}</td><td>${f(s/m*100,2)}</td><td>${f(pd,2)}</td></tr>`});$('res').innerHTML=h+'</table>';
+$('rsp').innerHTML=SP.length?'<table><tr><th>Kode</th><th>C1 (mg/kg)</th><th>C3 (mg/kg)</th><th>C2 (mg/kg)</th><th>% Rec</th><th>Status (80-120%)</th></tr>'+SP.map(o=>`<tr><td>${o.k}</td><td>${f(o.c1,2)}</td><td>${f(o.c3,2)}</td><td>${f(o.c2,2)}</td><td><b>${f(o.rec,1)}</b></td><td class="${o.rec>=80&&o.rec<=120?'ok':'bad'}">${o.rec>=80&&o.rec<=120?'Memenuhi':'Tidak memenuhi'}</td></tr>`).join('')+'</table>':''}
+function draw(){const c=$('ch'),g=c.getContext('2d'),W=640,H=380,p=55;g.fillStyle='#fff';g.fillRect(0,0,W,H);g.fillStyle=g.strokeStyle='#222';g.font='13px sans-serif';
+if(!REG){g.fillText('Kurva kalibrasi akan tampil di sini',200,190);return}
+const mx=Math.max(...REG.X,...(RES.rows||[]).map(o=>o.cs))*1.1||1,my=Math.max(...REG.Y,...(RES.rows||[]).map(o=>o.ab))*1.1||1,px=x=>p+x/mx*(W-p-15),py=y=>H-p-y/my*(H-p-20);
+g.strokeStyle='#e1e6ec';for(let i=0;i<=5;i++){g.beginPath();g.moveTo(px(mx*i/5),py(0));g.lineTo(px(mx*i/5),py(my));g.moveTo(px(0),py(my*i/5));g.lineTo(px(mx),py(my*i/5));g.stroke();g.fillStyle='#222';g.fillText(f(mx*i/5,2),px(mx*i/5)-12,H-p+16);g.fillText(f(my*i/5,2),8,py(my*i/5)+4)}
+g.strokeStyle='#222';g.strokeRect(p,20,W-p-15,H-p-20);g.fillText('Konsentrasi P (mg/L)',W/2-60,H-12);g.save();g.translate(14,H/2+30);g.rotate(-Math.PI/2);g.fillText('Absorbansi',0,0);g.restore();
+g.strokeStyle='#1f5fbf';g.lineWidth=2;g.beginPath();g.moveTo(px(0),py(REG.a));g.lineTo(px(mx),py(REG.a+REG.b*mx));g.stroke();g.lineWidth=1;
+g.fillStyle='#1f5fbf';REG.X.forEach((x,i)=>{g.beginPath();g.arc(px(x),py(REG.Y[i]),4,0,7);g.fill()});
+g.fillStyle='#c8441e';(RES.rows||[]).forEach(o=>{const x=px(o.cs),y=py(o.ab);g.beginPath();g.moveTo(x,y-6);g.lineTo(x+6,y);g.lineTo(x,y+6);g.lineTo(x-6,y);g.fill()});
+g.fillStyle='#222';g.fillText(`Y = ${f(REG.a,4)} + ${f(REG.b,4)}X   r = ${f(REG.r,4)}`,p+10,36);g.fillStyle='#c8441e';g.fillText('◆ sampel',W-95,36)}
+function ex(){quickStd();$('smp').innerHTML='';$('spk').innerHTML='';sampleTables();['air','pupuk','pangan'].forEach(k=>{const p=PRE[k];['r1','r2'].forEach(t=>addS([p.k,k,p.m,sim(k,t).toFixed(4),p.vl,p.fp]));addK([p.k,sim(k,'spk').toFixed(4),p.sm,p.vs,p.cs,p.vl,p.fp,p.f])});calc()}
+document.addEventListener('input',e=>{if(e.target.closest('#s3'))calc()});$('addS').onclick=()=>{addS();calc()};$('addK').onclick=()=>{addK();calc()};$('ex').onclick=ex;
+$('clr').onclick=()=>{stdTable();sampleTables();calc()};
+function mk(){if(!REG){$('rep').innerHTML='Data kalibrasi belum lengkap. Isi di bagian Kalkulator.';return}
+const t=(h,r)=>`<table><tr>${h.map(x=>'<th>'+x+'</th>').join('')}</tr>${r.map(x=>'<tr>'+x.map(y=>'<td>'+y+'</td>').join('')+'</tr>').join('')}</table>`,pr=Object.entries(RES.g);
+$('rep').innerHTML=`<h2 style="text-align:center">LAPORAN PENETAPAN KADAR FOSFAT</h2><p style="text-align:center">${$('jd').value}<br>Analis: ${$('nm').value||'-'} | Tanggal: ${$('tg').value||'-'}</p>
+<h3>1. Metode</h3><p>Spektrofotometri visible metode asam askorbat pada 880 nm (SNI 06-6989.31-2005).</p>
+<h3>2. Standar induk dan deret standar</h3><p>C induk = ${f(+$('ci').textContent,2)} mg/L; C baku 2 = ${f(+$('c2').textContent,3)} mg/L.</p>${t(['Konsentrasi (mg/L)','Absorbansi'],REG.X.map((x,i)=>[f(x,4),f(REG.Y[i])]))}
+<h3>3. Kurva kalibrasi</h3><img src="${$('ch').toDataURL()}" style="max-width:100%"><p>Y = ${f(REG.a,4)} + ${f(REG.b,4)}X; r = ${f(REG.r,5)}; R² = ${f(REG.r2,5)}; LOD = ${f(REG.lod,4)} mg/L; LOQ = ${f(REG.loq,4)} mg/L.</p>
+<h3>4. Hasil sampel</h3>${t(['Kode','Ulangan','Abs','Cs (mg/L)','Kadar','Satuan'],RES.rows.map((o,i)=>[o.k,RES.rows.slice(0,i+1).filter(z=>z.k==o.k).length,f(o.ab),f(o.cs,4),f(o.kd,2),o.j=='air'?'mg P/L':'mg P/kg']))}
+<h3>5. Presisi</h3>${t(['Kode','Rerata','SD','%RSD','%RPD','Status'],pr.map(([k,a])=>{const s=a.stat;return[k,f(s.m,2),f(s.s,3),f(s.rsd,2),f(s.rpd,2),(isFinite(s.rpd)?s.rpd:s.rsd)<=10?'Memenuhi':'Perlu ditinjau']}))}
+<h3>6. Akurasi</h3>${SP.length?t(['Kode','C1','C3','C2','% Rec','Status'],SP.map(o=>[o.k,f(o.c1,2),f(o.c3,2),f(o.c2,2),f(o.rec,1),o.rec>=80&&o.rec<=120?'Memenuhi':'Tidak memenuhi'])):'<p>Tidak ada data spike.</p>'}
+<h3>7. Kesimpulan</h3><p>Linearitas ${REG.r>=.995?'memenuhi':'belum memenuhi'} (r ≥ 0,995). Kriteria presisi (≤10%) dan akurasi (80-120%) adalah acuan umum; sesuaikan dengan ketentuan diktat/dosen.</p>`}
+stdTable();sampleTables();try{init()}catch(e){console.error(e);$('ld').innerHTML='Model 3D gagal dimuat (WebGL/Three.js): '+e.message}ex();mk();
+</script></body></html>
